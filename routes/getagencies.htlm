@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl"> 
+
+<p>White city soft login</p>
+
+      <form class="form-horizontal" ng-submit="submit()">
+                     
+
+                        <div class="form-group">
+                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+
+                            <div class="col-md-6">
+                                <input ng-model="data.email" id="email" type="email" class="form-control" name="email" required>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="col-md-4 control-label">Password</label>
+
+                            <div class="col-md-6">
+                                <input ng-model="data.password" id="password" type="password" class="form-control" name="password" required>
+
+                           
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Login
+                                </button>
+                            </div>
+                        </div>
+						
+                    </form>
+					
+					<div id="res">{{ message }}</div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+/*
+
+
+    $http.get("http://192.168.33.10/xml/")
+    .then(function (response) {
+	});
+	
+*/
+  
+     $scope.data = {};
+        $scope.submit = function() {
+		$scope.message = "";
+		let headers = new Headers();
+		headers.append('Access-Control-Allow-Origin', '*');
+		headers.append('Content-Type', 'multipart/form-data; charset=utf-8');
+		headers.append('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+        headers.append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+		
+        $http({
+          method  : 'POST',
+          url     : 'http://192.168.33.10/restapp/public/api/login',
+          data   : {email: $scope.data.email, 
+					password: $scope.data.password, 
+					api_key: "EgsIQjGV6oodeYMjJ0KD94Zmb8FsckXn5WHVb7OVwWp6bBnCeF2Vhj2aYmY7"},
+          headers : headers 
+         })
+		.then(function(response) {
+			
+			$scope.message = response.data;
+			
+		  });
+
+	}
+});
+</script>
+
+</body>
+</html>
