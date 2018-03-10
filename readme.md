@@ -35,4 +35,3 @@ generise se api_token koji mu omogucava pristum agencijama i kontaktima kao i da
 user(kontakt) dobija odrdjeni nivo pristupa sto se proverava u middleware - u, tako da se dve provere vrse na serveru.
 Profesije ( profesija1, profesija2, profesija3 ... ) se unose u isto polje u tabelu users.
 U tabeli users je i adminstrator polje 'admin = 1' i kontakti  polje 'admin = 0' .
-Za login i logout se postuje i api_key uz ostalo
