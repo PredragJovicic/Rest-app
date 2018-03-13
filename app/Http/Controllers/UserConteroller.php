@@ -39,24 +39,7 @@ class UserConteroller extends Controller
     {
         if($request->input('api_token') == $user->api_token) {
 
-            $req = $request;
-            $reqall = $req->all();
-            if ($req->hasFile('avatar')) {
-                if (file_exists('avatar/' . $user->avatar)) {
-                    unlink('avatar/' . $user->avatar); // Delete the picture if it already exists
-                }
-                $ext = '.' . $req->file('avatar')->extension();
-                $newfilename = time() . '_avatar' . $ext;
-                $req->file('avatar')->move('avatar', $newfilename);
-                $reqall['avatar'] = $newfilename;
-
-            }
-            if (isset($reqall['password'])) {
-
-                $reqall['password'] = bcrypt($req->input('password'));
-            }
-
-
+			$reqall = $this->userUpdate($request, $user);
             $user->update($reqall);
 
             return response()->json($user, 200);
@@ -66,12 +49,33 @@ class UserConteroller extends Controller
     }
     public function updateAdminstrator(Request $request, User $user)
     {
-        $req = $request;
+		
+		$reqall = $this->userUpdate($request, $user);
+        $user->update($reqall);
+
+        return response()->json($user, 200);
+    }
+
+
+    public function delete(User $user)
+    {
+
+        if(file_exists('avatar/'.$user->avatar)){
+            unlink('avatar/'.$user->avatar);
+        }
+        $user->delete();
+
+        return response()->json(['data' => 'Contact deleted'], 200);
+    }
+
+	private function userUpdate(Request $request, User $user){
+		 
+		$req = $request;
         $reqall = $req->all();
         if ($req->hasFile('avatar'))
         {
             if(file_exists('avatar/'.$user->avatar)) {
-                unlink('avatar/' . $user->avatar); // Delete the picture if it already exists
+                unlink('avatar/' . $user->avatar); 
             }
             $ext = '.' . $req->file('avatar')->extension();
             $newfilename = time().'_avatar' . $ext;
@@ -84,24 +88,6 @@ class UserConteroller extends Controller
             $reqall['password'] = bcrypt($req->input('password'));
         }
 
-
-        $user->update($reqall);
-
-        return response()->json($user, 200);
-    }
-
-
-    public function delete(User $user)
-    {
-
-        $user = User::find($user->contact_id);
-        $user->delete();
-        if(file_exists('avatar/'.$user->avatar)){
-            unlink('avatar/'.$user->avatar);
-        }
-        $user->delete();
-
-        return response()->json(['data' => 'Contact deleted'], 204);
-    }
-
+		return $reqall;
+	}
 }

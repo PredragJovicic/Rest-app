@@ -29,7 +29,6 @@ class SearchController extends Controller
                 ->take($limit)
                 ->skip($offset)
                 ->get();
-            return response()->json($res);
         }else{
 
             $res = DB::table('agencies')
@@ -37,8 +36,9 @@ class SearchController extends Controller
                 ->take($limit)
                 ->skip($offset)
                 ->get();
-            return response()->json($res);
+
         }
+		return response()->json($res);
     }
     public function searchContacts(Request $request ){
 
@@ -50,14 +50,13 @@ class SearchController extends Controller
 
             $res = DB::table('users')
                 ->where("admin","=",'0')
-                ->where("firstlastname","like",'%'.$search.'%')
+                ->where("name","like",'%'.$search.'%')
                 ->orWhere('phone', "like",'%'.$search.'%')
                 ->orWhere('email', "like",'%'.$search.'%')
                 ->orderBy('id', 'desc')
                 ->take($limit)
                 ->skip($offset)
                 ->get();
-            return response()->json($res);
         }else{
             $res = DB::table('users')
                 ->where("admin","=",'0')
@@ -65,7 +64,9 @@ class SearchController extends Controller
                 ->take($limit)
                 ->skip($offset)
                 ->get();
-            return response()->json($res);
+
         }
+
+            return response()->json($res);
     }
 }

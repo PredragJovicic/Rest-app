@@ -49,17 +49,11 @@ class LoginController extends Controller
         if ($user) {
             $user->api_token = null;
             $user->save();
+			return response()->json([ 'data' => 'User logged out.' ], 200);
         }
 
-        return response()->json([ 'data' => 'User logged out.' ], 200);
+        return response()->json([ 'data' => 'Error logged.' ], 200);
     }
 
-    protected function sendFailedLoginResponse(Request $request)
-    {
-        $errors = [ 'error' => trans('auth.failed') ];
-
-        return response()->json($errors, 401);
-    }
-
-
+    
 }
