@@ -1,51 +1,38 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+Rest app
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+api_key = EgsIQjGV6oodeYMjJ0KD94Zmb8FsckXn5WHVb7OVwWp6bBnCeF2Vhj2aYmY7
 
-## About Laravel
+Routes
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+/api/login - logovanje korisnika Administrator ili konatakt
+/api/logout - Odjava korisnika  Administrator ili konatakt
+/api/adduser - dodavanje novog kontakta, zahteva administratorski nivo pristupa
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+/api/getagencies - dohvata sve agencije, zahteva administratorski nivo pristupa
+/api/getagency/{agency} - dohvata agenciju po id-u i sve kontakte koji joj pripadaju, zahteva administratorski nivo pristupa
+/api/addagency - kreira novu agenciju, zahteva administratorski nivo pristupa
+/api/updateagency/{agency} - update - uje agenciju po id-u, zahteva administratorski nivo pristupa
+/api/deleteagency/{agency} - brise agenciju po id-u, zahteva administratorski nivo pristupa
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+/api/getusers - dohvata sve contakte i administratora, zahteva administratorski nivo pristupa
+/api/getuser/{user} - dohvata contakt i administratora po id-u, dozvoljava pristup sopstvenim podacima
+/api/getuserAdminstrator{user} - dohvata contakt i administratora po id-u, zahteva administratorski nivo pristupa i dozvoljava pristup svim kontaktima
+/api/updateuser/{user} - update-uje kontakt po id-u, dozvoljava da logovani kontakt menja svoje podatke
+/api/updateuserAdminstrator/{user} - update-uje kontakt po id-u, zahteva administratorski nivo pristupa i dozvoljava menjanje svih kontakata
 
-## Learning Laravel
+/api/deleteuser/{user} - brise kontakt po id-u, zahteva administratorski nivo pristupa
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+/api/getprofessions - dohvata sve profesije
+/api/getcountriescities - dohvata sve drzave i gradove
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+/api/searchagencies - pretrazuje agencije i vraca rezultat u odredjenom limitu(paginacija), zahteva administratorski nivo pristupa
+/api/searchcontacts - pretrazuje contakte i vraca rezultat u odredjenom limitu(paginacija), zahteva administratorski nivo pristupa
 
-## Laravel Sponsors
+Opis:
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
-
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Da bi front aplikacija uopste pristupila rest aplikaciji potreban joj je api_key koji sam naveo gore.Zatim kada se user uloguje
+generise se api_token koji mu omogucava pristum agencijama i kontaktima kao i da manipulise istim, U zavisnosti dali je administrator ili
+user(kontakt) dobija odrdjeni nivo pristupa sto se proverava u middleware - u, tako da se dve provere vrse na serveru.
+Profesije ( profesija1, profesija2, profesija3 ... ) se unose u isto polje u tabelu users.
+U tabeli users je i adminstrator polje 'admin = 1' i kontakti  polje 'admin = 0' .
+Za login i logout se postuje i api_key uz ostalo
