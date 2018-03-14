@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 13, 2018 at 06:34 PM
+-- Generation Time: Mar 14, 2018 at 12:43 PM
 -- Server version: 5.5.55-0ubuntu0.14.04.1
 -- PHP Version: 7.0.19-1+deb.sury.org~trusty+2
 
@@ -38,17 +38,16 @@ CREATE TABLE IF NOT EXISTS `agencies` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `agencies`
 --
 
 INSERT INTO `agencies` (`id`, `name`, `address`, `city`, `countri`, `phone`, `email`, `web`, `created_at`, `updated_at`) VALUES
-(1, 'Hand-Rolfson', '4261 Howe MillTrantowborough, PA 05911-23941', 'Belgrade', 'Serbia', '(647) 326-52501', 'flossie72@lowe.com', 'www.addadadadad.com', '2018-03-08 13:03:39', '2018-03-11 16:06:54'),
+(1, 'Hand-Rolfson', '4261 Howe MillTrantowborough, PA 05911-23941', 'Belgrade', 'Serbia', '(647) 326-52501', 'flossie72@lowe.com', 'www.addadadadad.com', '2018-03-08 13:03:39', '2018-03-14 12:42:43'),
 (2, 'Ryan, Feil and Bode', '227 Idella Vista\nStromanshire, UT 35226', 'New york', 'America', '984.280.7348', 'espinka@hotmail.com', 'www.addadadadad.com', '2018-03-08 13:03:39', '2018-03-08 13:03:39'),
-(3, 'Kub, Kirlin and Fadel', '672 Noel Passage Apt. 015\nNorth Angusview, MT 26238', 'Valjevo', 'Serbia', '1-445-750-2527 x9749', 'tierra18@hotmail.com', 'www.addadadadad.com', '2018-03-08 13:03:39', '2018-03-08 13:03:39'),
-(22, 'Test agencija', '4261 Howe MillTrantowborough, PA 05911-23941', 'Belgrade', 'Serbia', '1-430-387-5258 x0641', 'aa@aa.aa', 'www.addadadadad.com', '2018-03-13 10:41:04', '2018-03-13 10:41:04');
+(3, 'Kub, Kirlin and Fadel', '672 Noel Passage Apt. 015\nNorth Angusview, MT 26238', 'Valjevo', 'Serbia', '1-445-750-2527 x9749', 'tierra18@hotmail.com', 'www.addadadadad.com', '2018-03-08 13:03:39', '2018-03-08 13:03:39');
 
 -- --------------------------------------------------------
 
@@ -183,16 +182,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`),
   UNIQUE KEY `users_api_token_unique` (`api_token`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `admin`, `agency`, `professions`, `phone`, `avatar`, `api_token`) VALUES
-(1, 'Admin', 'admin@admin.admin', '$2y$10$SC6iBv.C1a/FkjcoRzTAxeUGdyxve.WhsdOhc5TfgM5gx7rsg0aRu', NULL, '2018-03-08 13:03:39', '2018-03-13 18:14:05', '1', '', '', '623.644.2776 x67150', '1_avatar.jpeg', NULL),
-(2, 'Lavon Lubowitz', 'amara42@zboncak.org2', '$2y$10$vbGoD5M/QmhLG5fyuJ6uAu3RObFFbJg7enb/TlMHpJWdx4B4FZBPW', NULL, '2018-03-08 13:03:39', '2018-03-12 14:04:40', '0', 'Hand-Rolfson', 'Lawyer,Menager', '1-430-387-5258 x0641', '1520863480_avatar.jpeg', NULL),
-(10, 'Moj kontakt', 'user@user.user', '$2y$10$b67Bs1BTP9gackTgMWD1/eTiI3NwHJ6l8eHp14agf865CU4du467.', NULL, '2018-03-13 10:42:21', '2018-03-13 13:52:18', '0', 'Ryan, Feil and Bode', 'Prefesor,Menager', '(647) 326-5250 1', '1520939678_avatar.png', NULL);
+(1, 'Admin', 'admin@admin.admin', '$2y$10$SC6iBv.C1a/FkjcoRzTAxeUGdyxve.WhsdOhc5TfgM5gx7rsg0aRu', NULL, '2018-03-08 13:03:39', '2018-03-14 12:43:11', '1', '', '', '623.644.2776 x67150', '1_avatar.jpeg', NULL),
+(2, 'Lavon Lubowit', 'amara42@zboncak.org', '$2y$10$SC6iBv.C1a/FkjcoRzTAxeUGdyxve.WhsdOhc5TfgM5gx7rsg0aRu', NULL, '2018-03-08 13:03:39', '2018-03-14 12:40:18', '0', 'Hand-Rolfson', 'Lawyer,Menager', '1-430-387-5258 x0641', '1520863480_avatar.jpeg', NULL);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

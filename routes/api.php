@@ -32,14 +32,14 @@ Route::group(['middleware' => 'auth:api'], function() {
 	Route::get('getagency/{agency}', 'AgencyController@show');
 	Route::post('addagency', 'AgencyController@store');
 	Route::post('updateagency/{agency}', 'AgencyController@update');
-	Route::get('deleteagency/{agency}', 'AgencyController@delete');
+	Route::delete('deleteagency/{agency}', 'AgencyController@delete');
 	
 	Route::get('getusers', 'UserConteroller@index');
 	Route::get('getuser/{user}', 'UserConteroller@show');
     Route::get('getuserAdminstrator/{user}', 'UserConteroller@showAdmistrator');
 	Route::post('updateuser/{user}', 'UserConteroller@update');
     Route::post('updateuserAdminstrator/{user}', 'UserConteroller@updateAdminstrator');
-	Route::get('deleteuser/{user}', 'UserConteroller@delete');
+	Route::delete('deleteuser/{user}', 'UserConteroller@delete');
 
     Route::get('getprofessions', 'AtherDataController@getProfessions');
     Route::get('getcountriescities', 'AtherDataController@getPContriesCities');
