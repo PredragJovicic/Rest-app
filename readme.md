@@ -49,7 +49,7 @@ Routes
  U uglastim zagradama u kljucevi za slanje parametara a u viticastim id u mysql bazi.Npr:
 
 /api/getagency/{agency} - {agency} = id - dohvata agenciju po id-u i sve kontakte koji joj pripadaju, zahteva administratorski nivo pristupa 
- method: get [id,api_token] 
+ method: get [api_token] 
  
  
 Opis:
