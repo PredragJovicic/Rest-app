@@ -4,7 +4,7 @@ api_key = EgsIQjGV6oodeYMjJ0KD94Zmb8FsckXn5WHVb7OVwWp6bBnCeF2Vhj2aYmY7
 
 Routes
 
-/api/login - logovanje korisnika Administrator ili konatakt
+/api/login - logovanje korisnika Administrator ili konatakt <br>
  method: post [email,password]
 /api/logout - Odjava korisnika  Administrator ili konatakt
  method: post [api_token]
