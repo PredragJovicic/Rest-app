@@ -4,30 +4,54 @@ api_key = EgsIQjGV6oodeYMjJ0KD94Zmb8FsckXn5WHVb7OVwWp6bBnCeF2Vhj2aYmY7
 
 Routes
 
-/api/login - logovanje korisnika Administrator ili konatakt
-/api/logout - Odjava korisnika  Administrator ili konatakt
-/api/adduser - dodavanje novog kontakta, zahteva administratorski nivo pristupa
+/api/login - logovanje korisnika Administrator ili konatakt 
+ method: post [email,password] 
+/api/logout - Odjava korisnika  Administrator ili konatakt 
+ method: post [api_token] 
+/api/adduser - dodavanje novog kontakta, zahteva administratorski nivo pristupa 
+ method: post [name,email,password,password_confirmation,agency,professions,phone,avatar,api_token] 
+  
+/api/getagencies - dohvata sve agencije, zahteva administratorski nivo prist upa
+ method: get [api_token] 
+/api/getagency/{agency} - {agency} = id - dohvata agenciju po id-u i sve kontakte koji joj pripadaju, zahteva administratorski nivo pristupa 
+ method: get [api_token] 
+/api/addagency - kreira novu agenciju, zahteva administratorski nivo pristupa 
+ method: post [name,address,countri,city,phone,email,web,api_token] 
+/api/updateagency/{agency} - {agency} = id - update - uje agenciju po id-u, zahteva administratorski nivo pristupa 
+ method: post [name,address,countri,city,phone,email,web,api_token] 
+/api/deleteagency/{agency} - {agency} = id - brise agenciju po id-u, zahteva administratorski nivo pristupa 
+ method: delete [api_token] 
+  
+/api/getusers - dohvata sve contakte i administratora, zahteva administratorski nivo pristupa 
+ method: get [api_token] 
+/api/getuser/{user} - {user} = id - dohvata contakt i administratora po id-u, dozvoljava pristup sopstvenim podacima 
+ method: get [api_token] 
+/api/getuserAdminstrator{user} - {user} = id - dohvata contakt i administratora po id-u, zahteva administratorski nivo pristupa i dozvoljava pristup svim kontaktima 
+ method: get [api_token] 
+/api/updateuser/{user} - {user} = id - update-uje kontakt po id-u, dozvoljava da logovani kontakt menja svoje podatke 
+ method: post [name,email,password,password_confirmation,agency,professions,phone,avatar,api_token] 
+/api/updateuserAdminstrator/{user} - {user} = id - update-uje kontakt po id-u, zahteva administratorski nivo pristupa i dozvoljava menjanje svih kontakata 
+ method: post [name,email,password,password_confirmation,agency,professions,phone,avatar,api_token] 
+/api/deleteuser/{user} - {user} = id - brise kontakt po id-u, zahteva administratorski nivo pristupa 
+ method: delete [api_token] 
+  
+/api/getprofessions - dohvata sve profesije 
+ method: get [api_token] 
+/api/getcountriescities - dohvata sve drzave i gradove 
+ method: get [api_token] 
+ 
+/api/searchagencies - pretrazuje agencije i vraca rezultat u odredjenom limitu(paginacija), zahteva administratorski nivo pristupa 
+ method: post [search,offset,limit,api_token] 
+/api/searchcontacts - pretrazuje contakte i vraca rezultat u odredjenom limitu(paginacija), zahteva administratorski nivo pristupa 
+ method: post [search,offset,limit,api_token] 
+  
 
-/api/getagencies - dohvata sve agencije, zahteva administratorski nivo pristupa
-/api/getagency/{agency} - dohvata agenciju po id-u i sve kontakte koji joj pripadaju, zahteva administratorski nivo pristupa
-/api/addagency - kreira novu agenciju, zahteva administratorski nivo pristupa
-/api/updateagency/{agency} - update - uje agenciju po id-u, zahteva administratorski nivo pristupa
-/api/deleteagency/{agency} - brise agenciju po id-u, zahteva administratorski nivo pristupa
+ U uglastim zagradama u kljucevi za slanje parametara a u viticastim id u mysql bazi.Npr:
 
-/api/getusers - dohvata sve contakte i administratora, zahteva administratorski nivo pristupa
-/api/getuser/{user} - dohvata contakt i administratora po id-u, dozvoljava pristup sopstvenim podacima
-/api/getuserAdminstrator{user} - dohvata contakt i administratora po id-u, zahteva administratorski nivo pristupa i dozvoljava pristup svim kontaktima
-/api/updateuser/{user} - update-uje kontakt po id-u, dozvoljava da logovani kontakt menja svoje podatke
-/api/updateuserAdminstrator/{user} - update-uje kontakt po id-u, zahteva administratorski nivo pristupa i dozvoljava menjanje svih kontakata
-
-/api/deleteuser/{user} - brise kontakt po id-u, zahteva administratorski nivo pristupa
-
-/api/getprofessions - dohvata sve profesije
-/api/getcountriescities - dohvata sve drzave i gradove
-
-/api/searchagencies - pretrazuje agencije i vraca rezultat u odredjenom limitu(paginacija), zahteva administratorski nivo pristupa
-/api/searchcontacts - pretrazuje contakte i vraca rezultat u odredjenom limitu(paginacija), zahteva administratorski nivo pristupa
-
+/api/getagency/{agency} - {agency} = id - dohvata agenciju po id-u i sve kontakte koji joj pripadaju, zahteva administratorski nivo pristupa 
+ method: get [id,api_token] 
+   
+  
 Opis:
 
 Da bi front aplikacija uopste pristupila rest aplikaciji potreban joj je api_key koji sam naveo gore.Zatim kada se user uloguje

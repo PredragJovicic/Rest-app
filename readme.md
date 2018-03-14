@@ -14,26 +14,26 @@ Routes
 /api/getagencies - dohvata sve agencije, zahteva administratorski nivo prist <br>upa
  method: get [api_token] <br>
 /api/getagency/{agency} - {agency} = id - dohvata agenciju po id-u i sve kontakte koji joj pripadaju, zahteva administratorski nivo pristupa <br>
- method: get [id,api_token] <br>
+ method: get [api_token] <br>
 /api/addagency - kreira novu agenciju, zahteva administratorski nivo pristupa <br>
  method: post [name,address,countri,city,phone,email,web,api_token] <br>
 /api/updateagency/{agency} - {agency} = id - update - uje agenciju po id-u, zahteva administratorski nivo pristupa <br>
  method: post [name,address,countri,city,phone,email,web,api_token] <br>
 /api/deleteagency/{agency} - {agency} = id - brise agenciju po id-u, zahteva administratorski nivo pristupa <br>
- method: delete [id,api_token] <br>
+ method: delete [api_token] <br>
   <br>
 /api/getusers - dohvata sve contakte i administratora, zahteva administratorski nivo pristupa <br>
  method: get [api_token] <br>
 /api/getuser/{user} - {user} = id - dohvata contakt i administratora po id-u, dozvoljava pristup sopstvenim podacima <br>
- method: get [id,api_token] <br>
+ method: get [api_token] <br>
 /api/getuserAdminstrator{user} - {user} = id - dohvata contakt i administratora po id-u, zahteva administratorski nivo pristupa i dozvoljava pristup svim kontaktima <br>
- method: get [id,api_token] <br>
+ method: get [api_token] <br>
 /api/updateuser/{user} - {user} = id - update-uje kontakt po id-u, dozvoljava da logovani kontakt menja svoje podatke <br>
  method: post [name,email,password,password_confirmation,agency,professions,phone,avatar,api_token] <br>
 /api/updateuserAdminstrator/{user} - {user} = id - update-uje kontakt po id-u, zahteva administratorski nivo pristupa i dozvoljava menjanje svih kontakata <br>
  method: post [name,email,password,password_confirmation,agency,professions,phone,avatar,api_token] <br>
 /api/deleteuser/{user} - {user} = id - brise kontakt po id-u, zahteva administratorski nivo pristupa <br>
- method: delete [id,api_token] <br>
+ method: delete [api_token] <br>
   <br>
 /api/getprofessions - dohvata sve profesije <br>
  method: get [api_token] <br>
@@ -45,6 +45,13 @@ Routes
 /api/searchcontacts - pretrazuje contakte i vraca rezultat u odredjenom limitu(paginacija), zahteva administratorski nivo pristupa <br>
  method: post [search,offset,limit,api_token] <br>
   <br>
+  
+ U uglastim zagradama u kljucevi za slanje parametara a u viticastim id u mysql bazi.Npr:
+
+/api/getagency/{agency} - {agency} = id - dohvata agenciju po id-u i sve kontakte koji joj pripadaju, zahteva administratorski nivo pristupa 
+ method: get [id,api_token] 
+ 
+ 
 Opis:
 
 Da bi front aplikacija uopste pristupila rest aplikaciji potreban joj je api_key koji sam naveo gore.Zatim kada se user uloguje
