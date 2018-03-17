@@ -183,10 +183,10 @@ http://192.168.33.10/Rest-app/public/avatar/
 ## Opis kako aplikacija radi
 
 Da bi front aplikacija uopste pristupila rest aplikaciji potreban joj je api_key koji se salje u hederu.
-Aplikacija u startu zahteva logovanje i tu se proverava dali je administrator ili user. Administrator ima sve nivove pristupa
-, moze da manipulise agencijama i userima, sok user moze da vidi i menja samo svoje podatka.
+Aplikacija u startu zahteva logovanje i tu se proverava dali je administrator ili user. Administrator ima sve nivoe pristupa
+, moze da manipulise agencijama i userima, dok user moze da vidi i menja samo svoje podatke.
 Zatim kada se user uloguje generise se api_token koji mu omogucava pristum agencijama i userima, nivoi pristupa se proveravaju
 u middleware - u, tako da se sve provere vrse na serveru. 
-Profesije ( profesija1, profesija2, profesija3 ... ) se unose u isto polje u tabelu users.
+Profesije ( profesija1, profesija2, profesija3 ... ) se unose u isto polje u tabeli users.
 U tabeli users je i adminstrator polje 'admin = 1' i user polje 'admin = 0'.
 
