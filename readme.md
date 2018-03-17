@@ -13,7 +13,7 @@ composer install
 php artisan key:generate
 ```
 
-Ako nije kreiran ,env file kreirati ga i kopirati u njega
+Ako nije kreiran ,env fajl kreirati ga i kopirati u njega
 
 ```
 APP_NAME=Laravel
@@ -51,7 +51,7 @@ PUSHER_APP_KEY=
 PUSHER_APP_SECRET=
 ```
 
-## Priprene
+## Priprema
 
 Kreirati mysql bazu pod imenom "restapp".
 Ako koristite drugo ime za bazu promeniti u .env fajlu
@@ -64,7 +64,7 @@ DB_PASSWORD=root
 
 ## Instalacija i pokretanje
 
-Ako koristite Vagrant ako koristite web server ovo preskocite
+Ako koristite Vagrant
 
 ```
 $ vagrant up
@@ -140,18 +140,16 @@ method: POST [email,password]
 
 ```
 var loginroute = "http://192.168.33.10/Rest-app/public/api/login";
-var /api/login = "EgsIQjGV6oodeYMjJ0KD94Zmb8FsckXn5WHVb7OVwWp6bBnCeF2Vhj2aYmY7";
+var apikey = "EgsIQjGV6oodeYMjJ0KD94Zmb8FsckXn5WHVb7OVwWp6bBnCeF2Vhj2aYmY7";
 
-var obj = {'email': document.getElementById('email').value,
-		   'password': document.getElementById('password').value
-		  };
+var obj = {'email': 'admin@admin.admin','password': 'password'};
 
 $.ajax({
     url: loginroute,
     type: 'POST',
 	data: JSON.stringify(obj),
 	contentType: 'application/json',
-	headers: {"apikey": /api/login},
+	headers: {"apikey": apikey},
 	
     success: function(result) {
 			
@@ -184,10 +182,11 @@ http://192.168.33.10/Rest-app/public/avatar/
  
 ## Opis kako aplikacija radi
 
-Da bi front aplikacija uopste pristupila rest aplikaciji potreban joj je api_key koji sam naveo gore.
-Aplikacija u startu zahteva logovanje i tu se proverava dali je administrator ili user.  
-Zatim kada se user uloguje generise se api_token koji mu omogucava pristum agencijama i userima kao i da manipulise podacima 
-istih, U zavisnosti dali je administrator ili user dobija odredjeni nivo pristupa sto se proverava u middleware - u, tako da se 
-dve provere vrse na serveru. Profesije ( profesija1, profesija2, profesija3 ... ) se unose u isto polje u tabelu users.
+Da bi front aplikacija uopste pristupila rest aplikaciji potreban joj je api_key koji se salje u hederu.
+Aplikacija u startu zahteva logovanje i tu se proverava dali je administrator ili user. Administrator ima sve nivove pristupa
+, moze da manipulise agencijama i userima, sok user moze da vidi i menja samo svoje podatka.
+Zatim kada se user uloguje generise se api_token koji mu omogucava pristum agencijama i userima, nivoi pristupa se proveravaju
+u middleware - u, tako da se sve provere vrse na serveru. 
+Profesije ( profesija1, profesija2, profesija3 ... ) se unose u isto polje u tabelu users.
 U tabeli users je i adminstrator polje 'admin = 1' i user polje 'admin = 0'.
 
