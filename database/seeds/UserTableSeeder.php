@@ -1,5 +1,7 @@
 <?php
 
+use App\Agencies;
+use App\Professions;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
@@ -21,7 +23,16 @@ class UserTableSeeder extends Seeder
         // let's hash it before the loop, or else our seeder 
         // will be too slow.
         $password = Hash::make('password');
-
+        User::create([
+            'name' => 'Administrator',
+            'email' => 'admin@admin.admin',
+            'password' => $password,
+            'admin' => '1',
+            'agency' => "admin",
+            'professions' => "admin",
+            'phone' => "admin",
+            'avatar' => "avatar.png"
+        ]);
         // And now let's generate a few dozen users for our app:
         for ($i = 0; $i < 3; $i++) {
             User::create([
@@ -29,11 +40,10 @@ class UserTableSeeder extends Seeder
                 'email' => $faker->email,
                 'password' => $password,
 				'admin' => '0',
-                'agency' => "",
-                'professions' => "",
+                'agency' => Agencies::inRandomOrder()->first()->name,
+                'professions' => Professions::inRandomOrder()->first()->profession,
                 'phone' => $faker->phoneNumber,
-                'email' => $faker->email,
-                'avatar' => "avatar.png",
+                'avatar' => "avatar.png"
             ]);
         }
     }

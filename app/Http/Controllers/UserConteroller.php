@@ -22,7 +22,7 @@ class UserConteroller extends Controller
 
     public function show(Request $request, User $user)
     {
-        if($request->input('api_token') == $user->api_token) {
+        if($request->input('api_token') == $user->api_token || $user->admin == 1) {
             return $user;
         }else{
             return response()->json(['data' => 'You dont have permmition to.access this!'], 200);
@@ -30,14 +30,9 @@ class UserConteroller extends Controller
 
     }
 
-    public function showAdmistrator(User $user)
-    {
-        return $user;
-    }
-
     public function update(Request $request, User $user)
     {
-        if($request->input('api_token') == $user->api_token) {
+        if($request->input('api_token') == $user->api_token || $user->admin == 1) {
 
 			$reqall = $this->userUpdate($request, $user);
             $user->update($reqall);
@@ -47,15 +42,6 @@ class UserConteroller extends Controller
             return response()->json(['data' => 'You dont have permmition to.access this!'], 200);
         }
     }
-    public function updateAdminstrator(Request $request, User $user)
-    {
-		
-		$reqall = $this->userUpdate($request, $user);
-        $user->update($reqall);
-
-        return response()->json($user, 200);
-    }
-
 
     public function delete(User $user)
     {

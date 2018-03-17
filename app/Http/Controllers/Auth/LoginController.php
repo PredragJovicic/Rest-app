@@ -25,8 +25,14 @@ class LoginController extends Controller
         $this->middleware('guest'); //['except' => 'logout']
     }
 
+    public function index()
+    {
+        return response()->json(['data' => 'No perrmition to access here!'], 200);
+    }
+
     public function login(Request $request)
     {
+
         $this->validateLogin($request);
 
         if ($this->attemptLogin($request)) {

@@ -24,26 +24,24 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
-Route::post('adduser', 'Auth\RegisterController@register');
+Route::post('newuser', 'Auth\RegisterController@register');
 
 Route::group(['middleware' => 'auth:api'], function() {
 
-    Route::get('getagencies', 'AgencyController@index');
-	Route::get('getagency/{agency}', 'AgencyController@show');
-	Route::post('addagency', 'AgencyController@store');
-	Route::post('updateagency/{agency}', 'AgencyController@update');
-	Route::delete('deleteagency/{agency}', 'AgencyController@delete');
+    Route::get('agencies', 'AgencyController@index');
+	Route::get('agencies/{agency}', 'AgencyController@show');
+	Route::post('agencies', 'AgencyController@store');
+	Route::put('agencies/{agency}', 'AgencyController@update');
+	Route::delete('agencies/{agency}', 'AgencyController@delete');
 	
-	Route::get('getusers', 'UserConteroller@index');
-	Route::get('getuser/{user}', 'UserConteroller@show');
-    Route::get('getuserAdminstrator/{user}', 'UserConteroller@showAdmistrator');
-	Route::post('updateuser/{user}', 'UserConteroller@update');
-    Route::post('updateuserAdminstrator/{user}', 'UserConteroller@updateAdminstrator');
-	Route::delete('deleteuser/{user}', 'UserConteroller@delete');
+	Route::get('users', 'UserConteroller@index');
+	Route::get('users/{user}', 'UserConteroller@show');
+	Route::put('users/{user}', 'UserConteroller@update');
+	Route::delete('users/{user}', 'UserConteroller@delete');
 
-    Route::get('getprofessions', 'AtherDataController@getProfessions');
-    Route::get('getcountriescities', 'AtherDataController@getPContriesCities');
+    Route::get('professions', 'AtherDataController@getProfessions');
+    Route::get('countriescities', 'AtherDataController@getPContriesCities');
 
     Route::post('searchagencies', 'SearchController@searchAgencies');
-    Route::post('searchcontacts', 'SearchController@searchContacts');
+    Route::post('searchusers', 'SearchController@searchContacts');
 });
