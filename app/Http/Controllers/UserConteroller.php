@@ -27,7 +27,7 @@ class UserConteroller extends Controller
         if($request->input('api_token') == $user->api_token || Auth::guard('api')->user()->admin == 1) {
             return $user;
         }else{
-            return response()->json(['data' => 'You dont have permmition to.access this!'], 200);
+            return response()->json(['data' => 'You dont have permmition to.access this!'], 401);
         }
 
     }
@@ -42,7 +42,7 @@ class UserConteroller extends Controller
 
             return response()->json($user, 200);
         }else{
-            return response()->json(['data' => 'You dont have permmition to.access this!'], 200);
+            return response()->json(['data' => 'You dont have permmition to.access this!'], 401);
         }
     }
 
@@ -54,22 +54,20 @@ class UserConteroller extends Controller
         }
         $user->delete();
 
-        return response()->json(['data' => 'Contact deleted'], 200);
+        return response()->json(['data' => 'Contact deleted'], 204);
     }
 
 	private function userUpdate(Request $request, User $user){
 		 
 		$req = $request;
         $reqall = $req->all();
-        if ($req->hasFile('avatar'))
+        if (!empty($reqall['avatar']))
         {
             if(file_exists('avatar/'.$user->avatar)) {
                 unlink('avatar/' . $user->avatar); 
             }
-            $ext = '.' . $req->file('avatar')->extension();
-            $newfilename = time().'_avatar' . $ext;
-            $req->file('avatar')->move('avatar',$newfilename);
-            $reqall['avatar'] = $newfilename;
+			
+			$reqall['avatar'] = $this->base64_to_img($reqall['avatar']);
 
         }
         if(isset($reqall['password'])){
@@ -79,4 +77,18 @@ class UserConteroller extends Controller
 
 		return $reqall;
 	}
+	
+	private function base64_to_img($img) {
+
+		$img = explode(",",$img);
+		$ext = explode("/", $img[0]);
+		$ext = explode(";", $ext[1]);
+		$ext = $ext[0];
+		$content = str_replace(' ', '+', $img[1]);
+		$encdata = base64_decode($content);
+		$filename = time() .'_avatar' . '.'.$ext;
+		file_put_contents('avatar/'.$filename, $encdata);
+		
+		return $filename; 
+	} 
 }

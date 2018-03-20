@@ -62,26 +62,36 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+	private function base64_to_img($img) {
+
+		$img = explode(",",$img);
+		$ext = explode("/", $img[0]);
+		$ext = explode(";", $ext[1]);
+		$ext = $ext[0];
+		$content = str_replace(' ', '+', $img[1]);
+		$encdata = base64_decode($content);
+		$filename = time() .'_avatar' . '.'.$ext;
+		file_put_contents('avatar/'.$filename, $encdata);
+		
+		return $filename; 
+	} 
+	 
     protected function create(array $data)
     {
-	
-        $file = $data['avatar'];
-        $ext = '.' . $file->extension();
-        $newfilename = time() .'_avatar'. $ext;
-
-        $data['avatar'] = $newfilename;
-        $file->move('avatar',$newfilename);
+   
+		$data['avatar'] = $this->base64_to_img($data['avatar']);
 
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-			'admin' => 0,
-            'agency' => $data['agency'],
-            'professions' => $data['professions'],
-            'phone' => $data['phone'],
-            'avatar' => $data['avatar'],
-        ]);
+				'name' => $data['name'],
+				'email' => $data['email'],
+				'password' => bcrypt($data['password']),
+				'admin' => 0,
+				'agency' => $data['agency'],
+				'professions' => $data['professions'],
+				'phone' => $data['phone'],
+				'avatar' => $data['avatar'],
+			]);
+
     }
 	
 	protected function registered(Request $request, $user)
