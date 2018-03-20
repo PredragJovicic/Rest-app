@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class UserConteroller extends Controller
 {
@@ -22,7 +24,7 @@ class UserConteroller extends Controller
 
     public function show(Request $request, User $user)
     {
-        if($request->input('api_token') == $user->api_token || $user->admin == 1) {
+        if($request->input('api_token') == $user->api_token || Auth::guard('api')->user()->admin == 1) {
             return $user;
         }else{
             return response()->json(['data' => 'You dont have permmition to.access this!'], 200);
@@ -32,7 +34,8 @@ class UserConteroller extends Controller
 
     public function update(Request $request, User $user)
     {
-        if($request->input('api_token') == $user->api_token || $user->admin == 1) {
+		
+        if($request->input('api_token') == $user->api_token || Auth::guard('api')->user()->admin == 1) {
 
 			$reqall = $this->userUpdate($request, $user);
             $user->update($reqall);

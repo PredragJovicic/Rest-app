@@ -64,6 +64,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+	
         $file = $data['avatar'];
         $ext = '.' . $file->extension();
         $newfilename = time() .'_avatar'. $ext;
