@@ -190,3 +190,5 @@ u middleware - u, tako da se sve provere vrse na serveru.
 Profesije ( profesija1, profesija2, profesija3 ... ) se unose u isto polje u tabeli users.
 U tabeli users je i adminstrator polje 'admin = 1' i user polje 'admin = 0'.
 
+## Front aplikacija
+Link od front aplikacije [Front aplikacija](https://github.com/PredragJovicic/Front-App)
