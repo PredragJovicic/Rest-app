@@ -1,8 +1,4 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-header("Content-Type: multipart/form-data; charset=utf-8");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 
 use Illuminate\Http\Request;
 
@@ -16,11 +12,12 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+/*
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+*/
+Route::group(['middleware' => 'cors'], function() {
 
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
@@ -44,4 +41,6 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     Route::post('searchagencies', 'SearchController@searchAgencies');
     Route::post('searchusers', 'SearchController@searchContacts');
+});
+
 });
