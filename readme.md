@@ -1,19 +1,19 @@
 # Rest app
 
-Rest aplikacija radjena u laravelu
+Rest application - laravel 
 
 ## Start
 
-Klonirati aplikaciju
+clone application
 
 ```
 $ git clone https://github.com/PredragJovicic/Rest-app.git
 $ cd Rest-app
-composer install
-php artisan key:generate
+$ composer install
+$ php artisan key:generate
 ```
 
-Ako nije kreiran ,env fajl kreirati ga i kopirati u njega
+If .env file not exist create it and copy code
 
 ```
 APP_NAME=Laravel
@@ -51,10 +51,10 @@ PUSHER_APP_KEY=
 PUSHER_APP_SECRET=
 ```
 
-## Priprema
+## Set database
 
-Kreirati mysql bazu pod imenom "restapp".
-Ako koristite drugo ime za bazu promeniti u .env fajlu
+Create mysql database and name it "restapp".
+If you use another name for database rename it in .env file
 
 ```
 DB_DATABASE=restapp
@@ -62,9 +62,9 @@ DB_USERNAME=root
 DB_PASSWORD=root
 ```
 
-## Instalacija i pokretanje
+## Instalation
 
-Ako koristite Vagrant
+If you use Vagrant
 
 ```
 $ vagrant up
@@ -73,68 +73,69 @@ $ vagrant ssh
 $ cd /var/www/public/Rest-app
 ```
 
-Generisanje tabela u bazi
+Creating tables
 
 ```
 $ php artisan migrate
 ```
 
-Ubacivanje test podataka ako hocete da tabele budu prazne ovo preskocite
+Creating test data.
+If you wont empty tables scip this.
 
 ```
 $ php artisan db:seed
 ```
 
-## Rute i kljucevi
+## Routes and keys
 
-Za pristup aplikaciji neophodan je api kljic
+To access application you need api key
 
 ```
 api_key = EgsIQjGV6oodeYMjJ0KD94Zmb8FsckXn5WHVb7OVwWp6bBnCeF2Vhj2aYmY7
 ```
 
-Rute i http metodi 
+Routes and http methodes
 
 ```
-/api/login - logovanje korisnika Administrator ili user
+/api/login - login admin or user
  method: POST [email,password] 
-/api/logout - Odjava korisnika  Administrator ili user 
+/api/logout - logout admin or user 
  method: POST [api_token] 
-/api/newuser - dodavanje novog usera, zahteva administratorski nivo pristupa 
+/api/newuser - add new user, access: admin only 
  method: POST [name,email,password,password_confirmation,agency,professions,phone,avatar,api_token] 
   
-/api/agencies - dohvata sve agencije, zahteva administratorski nivo pristupa
+/api/agencies - get all agencies, access: admin only
  method: GET [api_token] 
-/api/agencies/agency - agency = id - dohvata agenciju po id-u i sve usere koji joj pripadaju, zahteva administratorski nivo pristupa 
+/api/agencies/agency - agency = id - get one agency by id, access: admin only
  method: GET [api_token] 
-/api/agencies - kreira novu agenciju, zahteva administratorski nivo pristupa 
+/api/agencies - add new agency, access: admin only
  method: POST [name,address,countri,city,phone,email,web,api_token] 
-/api/agencies/agency - agency = id - update - uje agenciju po id-u, zahteva administratorski nivo pristupa 
+/api/agencies/agency - agency = id - update agency by id, access: admin only
  method: PUT [name,address,countri,city,phone,email,web,api_token] 
-/api/agencies/agency - agency = id - brise agenciju po id-u, zahteva administratorski nivo pristupa 
+/api/agencies/agency - agency = id - delete agency by id,access: admin only
  method: DELETE [api_token] 
   
-/api/users - dohvata sve usere i administratora, zahteva administratorski nivo pristupa 
+/api/users - get all users and admins, access: admin only
  method: GET [api_token] 
-/api/users/user - user = id - dohvata usera i administratora po id-u, dozvoljava pristup sopstvenim podacima 
+/api/users/user - user = id - get admin and user by id, access: admin and user
  method: GET [api_token] 
-/api/users/user - user = id - update-uje usera po id-u, dozvoljava da logovani user menja svoje podatke 
+/api/users/user - user = id - update user by id, access: admin and user
  method: PUT [name,email,password,password_confirmation,agency,professions,phone,avatar,api_token] 
-/api/users/user - user = id - brise usera po id-u, zahteva administratorski nivo pristupa 
+/api/users/user - user = id - delete user by id, access: admin only
  method: DELETE [api_token] 
   
-/api/professions - dohvata sve profesije 
+/api/professions - get all professions
  method: GET [api_token] 
-/api/countriescities - dohvata sve drzave i gradove 
+/api/countriescities - get all counties and cities
  method: GET [api_token] 
  
-/api/searchagencies - pretrazuje agencije i vraca rezultat u odredjenom limitu(paginacija), zahteva administratorski nivo pristupa 
+/api/searchagencies - search agencies, access: admin only  
  method: POST [search,offset,limit,api_token] 
-/api/searchusers - pretrazuje usere i vraca rezultat u odredjenom limitu(paginacija), zahteva administratorski nivo pristupa 
+/api/searchusers - search users, access: admin only
  method: POST [search,offset,limit,api_token] 
 ```  
-  
-U uglastim zagradama su dati kljucevi za slanje podataka. Primer login u javascriptu:
+
+The keys for sending data ara given in ["key1":"value1","key2":"value2"]. Login example:  
 
 method: POST [email,password] 
 
@@ -157,8 +158,8 @@ $.ajax({
     }
 });
 ```
-  
-Ako ste ubacili test podatke u bazu ovo su parametri za logovanje:
+
+If you enter test data to database this are parametars for login:
 
 Administrator  
 
@@ -174,21 +175,21 @@ username : brown.sven@gmail.com
 password : password
 ```
 
-Fajlovi se uploduju na lokaciju
+File upload location
 
 ```
 http://192.168.33.10/Rest-app/public/avatar/
 ```
  
-## Opis kako aplikacija radi
+## Description
 
-Da bi front aplikacija uopste pristupila rest aplikaciji potreban joj je api_key koji se salje u hederu.
-Aplikacija u startu zahteva logovanje i tu se proverava dali je administrator ili user. Administrator ima sve nivoe pristupa
-, moze da manipulise agencijama i userima, dok user moze da vidi i menja samo svoje podatke.
-Zatim, kada se user uloguje generise se api_token koji mu omogucava pristum agencijama i userima, nivoi pristupa se proveravaju
-u middleware - u, tako da se sve provere vrse na serveru. 
-Profesije ( profesija1, profesija2, profesija3 ... ) se unose u isto polje u tabeli users.
-U tabeli users je i adminstrator polje 'admin = 1' i user polje 'admin = 0'.
+In order for the front application to access the rest application at all, it needs an api_key that is sent in the header.
+The application at the start requires logging and it checks here whether it's an administrator or a user. The administrator has all access levels
+, can manipulate agencies and users, while a user can see and change only his data.
+Then, the application generates an api_token that allows it to access agencies and users, access levels are checked
+in middleware, so all checks are done on the server.
+Professions (profession1, profession2, profession3 ...) are entered in the same field in the users table.
+In the table, users are also the adminstrator field 'admin = 1' and the user field 'admin = 0'.
 
-## Front aplikacija
-Link od front aplikacije [Front aplikacija](https://github.com/PredragJovicic/Front-App)
+## Front application
+Link [Front application](https://github.com/PredragJovicic/Front-App)
