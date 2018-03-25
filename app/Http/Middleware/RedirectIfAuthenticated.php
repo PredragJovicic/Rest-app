@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Config;
 
 class RedirectIfAuthenticated
 {
@@ -17,14 +18,15 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if ($request->header('apikey') == 'EgsIQjGV6oodeYMjJ0KD94Zmb8FsckXn5WHVb7OVwWp6bBnCeF2Vhj2aYmY7' ) {
+		
+        if ($request->header('apikey') == Config::get('app.API_KEY') ) {
 
             if (Auth::guard($guard)->check()) {
 
-                return response()->json(['data' => 'Check your email and password!'], 200);
+                return response()->json(['data' => 'Check your email and password!'], 401);
             }
         }else{
-            return response()->json(['data' => 'Api key missing!'], 200);
+            return response()->json(['data' => 'Api key missing!'], 401);
         }
 
         return $next($request);

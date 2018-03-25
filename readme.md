@@ -190,6 +190,3 @@ Then, the application generates an api_token that allows it to access agencies a
 in middleware, so all checks are done on the server.
 Professions (profession1, profession2, profession3 ...) are entered in the same field in the users table.
 In the table, users are also the adminstrator field 'admin = 1' and the user field 'admin = 0'.
-
-## Front application
-Link [Front application](https://github.com/PredragJovicic/Front-App)

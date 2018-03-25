@@ -27,7 +27,7 @@ class LoginController extends Controller
 
     public function index()
     {
-        return response()->json(['data' => 'No perrmition to access here!'], 200);
+        return response()->json(['data' => 'No perrmition to access here!'], 403);
     }
 
     public function login(Request $request)
@@ -44,7 +44,7 @@ class LoginController extends Controller
             ]);
         }
 
-        return response()->json(['data' => 'Check your email and password!'], 200);
+        return response()->json(['data' => 'Check your email and password!'], 401);
     }
 
     public function logout(Request $request)
@@ -58,7 +58,7 @@ class LoginController extends Controller
 			return response()->json([ 'data' => 'User logged out.' ], 200);
         }
 
-        return response()->json([ 'data' => 'Error logged.' ], 200);
+        return response()->json([ 'data' => 'Error logged out.' ], 500);
     }
 
     

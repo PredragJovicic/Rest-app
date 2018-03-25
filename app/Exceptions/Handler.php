@@ -32,7 +32,8 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
-        parent::report($exception);
+	
+       parent::report($exception);
     }
 
     /**
@@ -44,31 +45,45 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-		  if ($exception instanceof ModelNotFoundException &&
-				$request->wantsJson())
-			{
-				return response()->json([
-					'data' => 'Resource not found'
-				], 404);
-			}
-        return parent::render($request, $exception);
-    }
 
-    /**
-     * Convert an authentication exception into an unauthenticated response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Auth\AuthenticationException  $exception
-     * @return \Illuminate\Http\Response
-     */
+	  if ($this->isHttpException($exception)) {
+			switch ($exception->getStatusCode()) {
+
+				// bad request
+				case '400':
+					return response()->json(['data' => 'Bad request'],400);
+					break;
+
+				// not authorized
+				case '403':
+					return response()->json(['data' => 'Not authorized'],403);
+					break;
+
+				// not found
+				case '404':
+					return response()->json(['data' => 'Not found'],404);
+					break;
+
+				// Service error
+				case '503':
+					return response()->json(['data' => 'Service unavailable'],503);
+					break;
+
+				default:
+					
+					return response()->json(['data' => 'Internal error'],500);
+					break;
+			}
+		} else {
+			
+			return response()->json(['data' => 'Internal error'],500);
+		}
+			
+    }
 
     protected function unauthenticated($request, AuthenticationException $exception)
     {
 
-        if ($request->expectsJson()) {
-            return response()->json(['data' => 'Unauthenticated.'], 401);
-        }
-
-        return redirect()->guest(route('login'));
+        return response()->json(['data' => 'Unauthenticated.'], 401);
     }
 }
