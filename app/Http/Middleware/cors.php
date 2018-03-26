@@ -13,9 +13,9 @@ class Cors
      * @param  \Closure  $next
      * @return mixed
      */
-      public function handle($request, Closure $next)
+    public function handle($request, Closure $next)
     {
-
+		
         header("Access-Control-Allow-Origin: *");
         header('Content-type: application/json');
         
